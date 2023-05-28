@@ -166,6 +166,7 @@ public class Test {
     }
 
     @org.junit.Test
+    // 10 k words all methods
     public void testAll2() {
         int[] arr = getInput("/home/ahmed/level2term2/Ds2/Heap_and_sorting_algorithms/src/10000n1.txt");
         MergeSort ms = new MergeSort(arr);
@@ -174,6 +175,19 @@ public class Test {
         InsertionSort is = new InsertionSort();
         assertArrayEquals(ms.getResult(), cs.intermediate[cs.intermediate.length - 1]);
         assertArrayEquals(ms.getResult(), is.sort(arr, 10000, false));
+    }
+
+    @org.junit.Test
+    // 20 k words all methods
+    public void testAll3() {
+        int[] arr = getInput("/home/ahmed/level2term2/Ds2/Heap_and_sorting_algorithms/src/20000n1.txt");
+        MergeSort ms = new MergeSort(arr);
+        CountingSort cs = new CountingSort(arr);
+        cs.sort();
+        InsertionSort is = new InsertionSort();
+        assertArrayEquals(ms.getResult(), cs.intermediate[cs.intermediate.length -
+                1]);
+        assertArrayEquals(ms.getResult(), is.sort(arr, 20000, false));
     }
 
 }
