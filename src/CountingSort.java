@@ -10,7 +10,7 @@ public class CountingSort {
     public CountingSort(int[] inputArr) {
         arr = inputArr;
         result = new int[arr.length];
-        intermediate = new int[2 * arr.length + 1][arr.length];
+        intermediate = new int[arr.length+1][arr.length];
         min = findMin();
     }
 
@@ -37,7 +37,6 @@ public class CountingSort {
     private void updateCount() {
         // Add the minimum value to all elements.
         for (int i = 0; i < arr.length; i++) {
-            intermediate[i] = Arrays.copyOf(arr, arr.length);
             arr[i] -= min;
         }
         countArray = new int[findMax() + 1];
@@ -65,12 +64,12 @@ public class CountingSort {
             result[index] = element;
             countArray[element]--;
         }
-
+        Arrays.fill(arr,0);
         for (int i = 0; i < arr.length; i++) {
-            intermediate[i + arr.length] = Arrays.copyOf(arr, arr.length);
+            intermediate[i] = Arrays.copyOf(arr, arr.length);
             arr[i] = result[i] + min; // add the minimum value back to each element
         }
-        intermediate[2 * arr.length] = Arrays.copyOf(arr, arr.length);
+        intermediate[arr.length] = Arrays.copyOf(arr, arr.length);
     }
 
     private void print1Array(int[] toPrint) {
@@ -95,13 +94,13 @@ public class CountingSort {
         }
     }
 
-    // public static void main(String[] args) {
-    //     int[] arr = { -7538, -6475, -5335, -2770, -1459, -1028, -439, 869, 2858, 9381 };
-    //     CountingSort test = new CountingSort(arr);
-    //     test.sort();
-    //     for (int i = 0; i < arr.length * 2 + 1; i++) {
-    //         System.out.println(Arrays.toString(test.intermediate[i]));
-    //     }
-
-    // }
+    //public static void main(String[] args) {
+      //   int[] arr = { -7538, -6475, -5335, -2770, -1459, -1028, -439, 869, 2858, 9381 };
+        // CountingSort test = new CountingSort(arr);
+        // test.sort();
+        // for (int i = 0; i < arr.length+1; i++) {
+        //     System.out.println(Arrays.toString(test.intermediate[i]));
+        // }
+        // //System.out.print(Arrays.toString(test.arr));
+    //}
 }
