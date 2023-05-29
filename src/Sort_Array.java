@@ -30,14 +30,23 @@ public class Sort_Array {
     }
 
     public void Simple_Sort(boolean intermediate) {
+        int[] elementsClone = new int[elements.length];
+        for (int i = 0; i < elements.length; i++) {
+            elementsClone[i] = elements[i];
+        }
         InsertionSort is = new InsertionSort();
         if(intermediate) System.out.println("Sorted array with intermediate steps using Insertion Sort:");
         else System.out.println("Sorted array using Insertion Sort:");
-        is.sort(elements, size, intermediate);
+        is.sort(elementsClone, size, intermediate);
+        if(intermediate) System.out.println("|_>> Sorted Array");
     }
 
     public void Efficient_Sort(boolean intermediate) {
-        MergeSort ms = new MergeSort(elements);
+        int[] elementsClone = new int[elements.length];
+        for (int i = 0; i < elements.length; i++) {
+            elementsClone[i] = elements[i];
+        }
+        MergeSort ms = new MergeSort(elementsClone);
         if(intermediate) {
             System.out.println("Sorted array with intermediate steps using Merge Sort:");
             ms.printAll();
@@ -46,10 +55,15 @@ public class Sort_Array {
             System.out.println("Sorted array using Merge Sort:");
             ms.printLast();
         }
+        if(intermediate) System.out.println("|_>> Sorted Array");
     }
 
     public void Non_Comparison_Sort(boolean intermediate) {
-        CountingSort cs = new CountingSort(elements);
+        int[] elementsClone = new int[elements.length];
+        for (int i = 0; i < elements.length; i++) {
+            elementsClone[i] = elements[i];
+        }
+        CountingSort cs = new CountingSort(elementsClone);
         cs.sort();
         if(intermediate) {
             System.out.println("Sorted array with intermediate steps using Counting Sort:");
@@ -59,12 +73,18 @@ public class Sort_Array {
             System.out.println("Sorted array using Counting Sort:");
             cs.printLast();
         }
+        if(intermediate) System.out.println("|_>> Sorted Array");
     }
 
     public void Heap_Sort(boolean intermediate) {
+        int[] elementsClone = new int[elements.length];
+        for (int i = 0; i < elements.length; i++) {
+            elementsClone[i] = elements[i];
+        }
         HeapSort hs = new HeapSort();
         if(intermediate) System.out.println("Sorted array with intermediate steps using Heap Sort:");
         else System.out.println("Sorted array using Heap Sort:");
-        hs.sort(elements, intermediate);
+        hs.sort(elementsClone, intermediate);
+        if(intermediate) System.out.println("|_>> Sorted Array");
     }
 }
