@@ -73,13 +73,35 @@ public class CountingSort {
         intermediate[2 * arr.length] = Arrays.copyOf(arr, arr.length);
     }
 
-    public static void main(String[] args) {
-        int[] arr = { -7538, -6475, -5335, -2770, -1459, -1028, -439, 869, 2858, 9381 };
-        CountingSort test = new CountingSort(arr);
-        test.sort();
-        for (int i = 0; i < arr.length * 2 + 1; i++) {
-            System.out.println(Arrays.toString(test.intermediate[i]));
+    private void print1Array(int[] toPrint) {
+        System.out.print("[");
+        for (int i = 0; i < toPrint.length - 1; i++) {
+            System.out.print(toPrint[i] + ", ");
         }
-
+        System.out.print(toPrint[toPrint.length - 1]);
+        System.out.print("]");
     }
+
+    public void printLast() {
+        print1Array(arr);
+        System.out.println();
+    }
+
+    public void printAll() {
+        for (int i = 1; i <= intermediate.length; i++) {
+            System.out.print(i + ") ");
+            print1Array(intermediate[i - 1]);
+            System.out.println();
+        }
+    }
+
+    // public static void main(String[] args) {
+    //     int[] arr = { -7538, -6475, -5335, -2770, -1459, -1028, -439, 869, 2858, 9381 };
+    //     CountingSort test = new CountingSort(arr);
+    //     test.sort();
+    //     for (int i = 0; i < arr.length * 2 + 1; i++) {
+    //         System.out.println(Arrays.toString(test.intermediate[i]));
+    //     }
+
+    // }
 }
