@@ -56,12 +56,12 @@ public class MergeSort {
     }
 
     private void print1Array(int[] toPrint) {
-        System.out.print("{");
+        System.out.print("[");
         for (int i = 0; i < toPrint.length - 1; i++) {
             System.out.print(toPrint[i] + ", ");
         }
         System.out.print(toPrint[toPrint.length - 1]);
-        System.out.print("}");
+        System.out.print("]");
     }
 
     public void printLast() {
@@ -73,14 +73,13 @@ public class MergeSort {
         int n = allArrays.size();
         for (int i = n - 1; i >= 0; i--) {
             int m = allArrays.get(i).size();
-            System.out.print("{    ");
+            System.out.print((n - i) + ") ");
             for (int j = 0; j < m - 1; j++) {
                 print1Array(allArrays.get(i).get(j));
-                System.out.print(" ,    ");
+                System.out.print(", ");
             }
             print1Array(allArrays.get(i).get(m - 1));
-            System.out.println("    }");
-
+            System.out.println();
         }
     }
 

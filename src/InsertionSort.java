@@ -14,7 +14,7 @@ public class InsertionSort {
                 System.out.println();
             }
         }
-        if (intermediate) {
+        if (!intermediate) {
             print(arr);
             System.out.println();
         }
@@ -27,7 +27,7 @@ public class InsertionSort {
         for (int i = 0; i < size; i++) {
             System.out.print(arr[i]);
             if (i < size - 1) {
-                System.out.print(" ,");
+                System.out.print(", ");
 
             }
         }
