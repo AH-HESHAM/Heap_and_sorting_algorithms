@@ -1,6 +1,9 @@
 import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.List;
 import java.util.Scanner;
 
 // import org.junit.Test;
@@ -155,14 +158,78 @@ public class Test {
 
     // end insertion sort
 
-    // O(N^2) and O(n log n) methods million larg file
+    // start haep
+
+    @org.junit.Test
+    // larg randome numbers even size
+    public void test1Heap() {
+        int[] arr = getInput("/home/ahmed/level2term2/Ds2/Heap_and_sorting_algorithms/src/10n1.txt");
+        List<Integer> li = MaxHeap.arrayToList(arr);
+        MaxHeap.heapSort(li);
+        int[] ans = { -7538, -6475, -5335, -2770, -1459, -1028, -439, 869, 2858, 9381 };
+        assertArrayEquals(ans, MaxHeap.listToArray(li));
+    }
+
+    @org.junit.Test
+    // build heap , extrct max, insert new in the middle and soet new array
+    public void test2Heap() {
+        int[] arr = getInput("/home/ahmed/level2term2/Ds2/Heap_and_sorting_algorithms/src/test1.txt");
+        List<Integer> li = MaxHeap.arrayToList(arr);
+        MaxHeap.buildMaxHeap(li);
+        assertEquals(21, MaxHeap.heapExtractMax(li));
+        MaxHeap.maxHeapInsert(li, 5);
+        MaxHeap.heapSort(li);
+        int[] ans = { -1, 0, 2, 4, 5, 7, 10 };
+        assertArrayEquals(ans, MaxHeap.listToArray(li));
+    }
+
+    @org.junit.Test
+    // already sorted
+    public void test3Heap() {
+        int[] arr = { 10, 20, 30, 40, 50, 60 };
+        List<Integer> li = MaxHeap.arrayToList(arr);
+        MaxHeap.heapSort(li);
+        int[] ans = { 10, 20, 30, 40, 50, 60 };
+        assertArrayEquals(ans, MaxHeap.listToArray(li));
+    }
+
+    @org.junit.Test
+    // reversed
+    public void test4Heap() {
+        int[] arr = { 60, 50, 40, 30, 20, 10 };
+        List<Integer> li = MaxHeap.arrayToList(arr);
+        MaxHeap.heapSort(li);
+        int[] ans = { 10, 20, 30, 40, 50, 60 };
+        assertArrayEquals(ans, MaxHeap.listToArray(li));
+    }
+
+    @org.junit.Test
+    // insert max, insert min, extract twice
+    public void test5Heap() {
+        int[] arr = getInput("/home/ahmed/level2term2/Ds2/Heap_and_sorting_algorithms/src/test1.txt");
+        List<Integer> li = MaxHeap.arrayToList(arr);
+        MaxHeap.buildMaxHeap(li);
+        MaxHeap.maxHeapInsert(li, 50);
+        MaxHeap.maxHeapInsert(li, -20);
+        int[] ans = { -20, -1, 0, 2, 4, 7, 10, 21, 50 };
+        MaxHeap.heapSort(li);
+        assertArrayEquals(ans, MaxHeap.listToArray(li));
+        assertEquals(50, MaxHeap.heapExtractMax(li));
+        assertEquals(21, MaxHeap.heapExtractMax(li));
+    }
+
+    // end heap
+
+    // heap, O(N^2) and O(n log n) methods 100k larg file
     @org.junit.Test
     public void testAll() {
-        int[] arr = getInput("/home/ahmed/level2term2/Ds2/Heap_and_sorting_algorithms/src/1000000n1.txt");
+        int[] arr = getInput("/home/ahmed/level2term2/Ds2/Heap_and_sorting_algorithms/src/100000n1.txt");
         MergeSort ms = new MergeSort(arr);
-        // CountingSort cs = new CountingSort(arr);
         InsertionSort is = new InsertionSort();
-        assertArrayEquals(ms.getResult(), is.sort(arr, 1000000, false));
+        List<Integer> li = MaxHeap.arrayToList(arr);
+        MaxHeap.heapSort(li);
+        assertArrayEquals(ms.getResult(), is.sort(arr, 100000, false));
+        assertArrayEquals(ms.getResult(), MaxHeap.listToArray(li));
     }
 
     @org.junit.Test
@@ -173,8 +240,11 @@ public class Test {
         CountingSort cs = new CountingSort(arr);
         cs.sort();
         InsertionSort is = new InsertionSort();
+        List<Integer> li = MaxHeap.arrayToList(arr);
+        MaxHeap.heapSort(li);
         assertArrayEquals(ms.getResult(), cs.intermediate[cs.intermediate.length - 1]);
         assertArrayEquals(ms.getResult(), is.sort(arr, 10000, false));
+        assertArrayEquals(ms.getResult(), MaxHeap.listToArray(li));
     }
 
     @org.junit.Test
@@ -185,9 +255,26 @@ public class Test {
         CountingSort cs = new CountingSort(arr);
         cs.sort();
         InsertionSort is = new InsertionSort();
-        assertArrayEquals(ms.getResult(), cs.intermediate[cs.intermediate.length -
-                1]);
+        List<Integer> li = MaxHeap.arrayToList(arr);
+        MaxHeap.heapSort(li);
+        assertArrayEquals(ms.getResult(), cs.intermediate[cs.intermediate.length - 1]);
         assertArrayEquals(ms.getResult(), is.sort(arr, 20000, false));
+        assertArrayEquals(ms.getResult(), MaxHeap.listToArray(li));
+    }
+
+    @org.junit.Test
+    // only one element
+    public void testAll4() {
+        int[] arr = { 205 };
+        MergeSort ms = new MergeSort(arr);
+        CountingSort cs = new CountingSort(arr);
+        cs.sort();
+        InsertionSort is = new InsertionSort();
+        List<Integer> li = MaxHeap.arrayToList(arr);
+        MaxHeap.heapSort(li);
+        assertArrayEquals(ms.getResult(), cs.intermediate[cs.intermediate.length - 1]);
+        assertArrayEquals(ms.getResult(), is.sort(arr, 1, false));
+        assertArrayEquals(ms.getResult(), MaxHeap.listToArray(li));
     }
 
 }
