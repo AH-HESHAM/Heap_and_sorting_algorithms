@@ -3,24 +3,27 @@ import java.util.List;
 
 public class HeapSort {
 
-    public void sort(int[] array, boolean intermediate) {
+    public int[] sort(int[] array, boolean intermediate) {
+        MaxHeap mh = new MaxHeap();
         List<Integer> arr = new ArrayList<>();
-        for(int i = 0; i < array.length; i++) {
+        for (int i = 0; i < array.length; i++) {
             arr.add(i, array[i]);
         }
         int n = arr.size();
-        MaxHeap.buildMaxHeap(arr);
+        mh.buildMaxHeap(arr);
 
         for (int i = n - 1; i > 0; i--) {
-            MaxHeap.swap(arr, 0, i);
-            MaxHeap.maxHeapify(arr, i, 0);
-            if(intermediate) {
+            mh.swap(arr, 0, i);
+            mh.maxHeapify(arr, i, 0);
+            if (intermediate) {
                 System.out.print((n - i) + ") ");
                 print(arr);
                 System.out.println();
             }
         }
-        if(!intermediate) print(arr);
+        if (!intermediate)
+            print(arr);
+        return MaxHeap.listToArray(arr);
     }
 
     private void print(List<Integer> arr) {

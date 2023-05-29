@@ -2,7 +2,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MaxHeap {
-    public static void maxHeapify(List<Integer> arr, int n, int i) {
+    int[] heapified;
+
+    public void maxHeapify(List<Integer> arr, int n, int i) {
         int largest = i;
         int left = 2 * i + 1;
         int right = 2 * i + 2;
@@ -21,25 +23,29 @@ public class MaxHeap {
         }
     }
 
-    public static void buildMaxHeap(List<Integer> arr) {
+    public void buildMaxHeap(List<Integer> arr) {
         int n = arr.size();
         for (int i = n / 2 - 1; i >= 0; i--) {
             maxHeapify(arr, n, i);
         }
+        heapified = listToArray(arr);
     }
 
-    public static void heapSort(List<Integer> arr) {
-        int n = arr.size();
+    // public void heapSort(List<Integer> arr) {
+    // int n = arr.size();
 
-        buildMaxHeap(arr);
+    // buildMaxHeap(arr);
 
-        for (int i = n - 1; i > 0; i--) {
-            swap(arr, 0, i);
-            maxHeapify(arr, i, 0);
-        }
-    }
+    // for (int i = n - 1; i > 0; i--) {
+    // swap(arr, 0, i);
+    // maxHeapify(arr, i, 0);
+    // }
+    // }
 
-    public static void maxHeapInsert(List<Integer> arr, int num) {
+    public boolean maxHeapInsert(int num) {
+        if (heapified.length == 0)
+            return false;
+        List<Integer> arr = arrayToList(heapified);
         arr.add(num);
         int i = arr.size() - 1;
 
@@ -47,19 +53,22 @@ public class MaxHeap {
             swap(arr, i, (i - 1) / 2);
             i = (i - 1) / 2;
         }
+        heapified = listToArray(arr);
+        return true;
     }
 
-    public static int heapExtractMax(List<Integer> arr) {
-
+    public int heapExtractMax() {
+        List<Integer> arr = arrayToList(heapified);
         int max = arr.get(0);
         int n = arr.size();
         arr.set(0, arr.get(n - 1));
         arr.remove(n - 1);
         maxHeapify(arr, arr.size(), 0);
+        heapified = listToArray(arr);
         return max;
     }
 
-    public static void swap(List<Integer> arr, int i, int j) {
+    public void swap(List<Integer> arr, int i, int j) {
         int temp = arr.get(i);
         arr.set(i, arr.get(j));
         arr.set(j, temp);
