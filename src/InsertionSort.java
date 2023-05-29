@@ -1,5 +1,8 @@
 public class InsertionSort {
+    long time = 0;
+
     public int[] sort(int[] arr, int size, boolean intermediate) {
+        long start = System.nanoTime();
         for (int i = 1; i < size; i++) {
             int key = arr[i];
             int j = i - 1;
@@ -14,6 +17,7 @@ public class InsertionSort {
                 System.out.println();
             }
         }
+        time += (System.nanoTime() - start);
         if (!intermediate) {
             print(arr);
             System.out.println();
@@ -32,6 +36,11 @@ public class InsertionSort {
             }
         }
         System.out.print("]");
+    }
+
+    public void getTime() {
+        System.out.println("Time in nano = " + time);
+        System.out.println("Time in micro = " + time / 1000);
     }
 
 }
