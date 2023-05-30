@@ -1,3 +1,5 @@
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Arrays;
 
 public class CountingSort {
@@ -6,12 +8,15 @@ public class CountingSort {
     int[] result;
     int min; // minimum value in the input array
     int[][] intermediate;
+    private long time = 0;
 
     public CountingSort(int[] inputArr) {
+        long start = System.nanoTime();
         arr = inputArr;
         result = new int[arr.length];
-        intermediate = new int[arr.length+1][arr.length];
+        intermediate = new int[arr.length + 1][arr.length];
         min = findMin();
+        time = (System.nanoTime() - start);
     }
 
     private int findMax() {
@@ -56,6 +61,7 @@ public class CountingSort {
     }
 
     public void sort() {
+        long start = System.nanoTime();
         updateCount();
         // start from end to preserve order of numbers having same value.
         for (int i = arr.length - 1; i >= 0; i--) {
@@ -64,12 +70,13 @@ public class CountingSort {
             result[index] = element;
             countArray[element]--;
         }
-        Arrays.fill(arr,0);
+        Arrays.fill(arr, 0);
         for (int i = 0; i < arr.length; i++) {
             intermediate[i] = Arrays.copyOf(arr, arr.length);
             arr[i] = result[i] + min; // add the minimum value back to each element
         }
         intermediate[arr.length] = Arrays.copyOf(arr, arr.length);
+        time += (System.nanoTime() - start);
     }
 
     private void print1Array(int[] toPrint) {
@@ -94,13 +101,25 @@ public class CountingSort {
         }
     }
 
-    //public static void main(String[] args) {
-      //   int[] arr = { -7538, -6475, -5335, -2770, -1459, -1028, -439, 869, 2858, 9381 };
-        // CountingSort test = new CountingSort(arr);
-        // test.sort();
-        // for (int i = 0; i < arr.length+1; i++) {
-        //     System.out.println(Arrays.toString(test.intermediate[i]));
-        // }
-        // //System.out.print(Arrays.toString(test.arr));
-    //}
+    public void getTime(String path) {
+        try (FileWriter writer = new FileWriter(path, true)) {
+            writer.append("Count sort time for size = " + intermediate[intermediate.length - 1].length + "in micro = "
+                    + ((time) / 1000) + "\n");
+            writer.append("Count sort time for size = " + intermediate[intermediate.length - 1].length + " in milli = "
+                    + ((time) / 1000000) + "\n");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    // public static void main(String[] args) {
+    // int[] arr = { -7538, -6475, -5335, -2770, -1459, -1028, -439, 869, 2858, 9381
+    // };
+    // CountingSort test = new CountingSort(arr);
+    // test.sort();
+    // for (int i = 0; i < arr.length+1; i++) {
+    // System.out.println(Arrays.toString(test.intermediate[i]));
+    // }
+    // test.getTime();
+    // //System.out.print(Arrays.toString(test.arr));
+    // }
 }

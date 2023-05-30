@@ -1,7 +1,12 @@
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class InsertionSort {
     long time = 0;
+    int n = 0;
 
     public int[] sort(int[] arr, int size, boolean intermediate) {
+        n = size;
         long start = System.nanoTime();
         for (int i = 1; i < size; i++) {
             int key = arr[i];
@@ -38,9 +43,13 @@ public class InsertionSort {
         System.out.print("]");
     }
 
-    public void getTime() {
-        System.out.println("Time in nano = " + time);
-        System.out.println("Time in micro = " + time / 1000);
+    public void getTime(String path) {
+        try (FileWriter writer = new FileWriter(path, true)) {
+            writer.append("Insert sort time for size = " + n + "in micro = " + ((time) / 1000) + "\n");
+            writer.append("Insert sort time for size = " + n + " in milli = " + ((time) / 1000000) + "\n");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

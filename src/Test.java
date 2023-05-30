@@ -44,6 +44,7 @@ public class Test {
         MergeSort mysort = new MergeSort(arr);
         int[] ans = { -1, 0, 2, 4, 7, 10, 21 };
         assertArrayEquals(ans, mysort.getResult());
+        mysort.getTime("/home/ahmed/level2term2/Ds2/Heap_and_sorting_algorithms/src/avergeCase.txt");
     }
 
     @org.junit.Test
@@ -53,24 +54,27 @@ public class Test {
         MergeSort mysort = new MergeSort(arr);
         int[] ans = { -7538, -6475, -5335, -2770, -1459, -1028, -439, 869, 2858, 9381 };
         assertArrayEquals(ans, mysort.getResult());
+        mysort.getTime("/home/ahmed/level2term2/Ds2/Heap_and_sorting_algorithms/src/avergeCase.txt");
     }
 
     @org.junit.Test
     // already sorted
     public void test3Merge() {
-        int[] arr = { 10, 20, 30, 40, 50, 60 };
+        int[] arr = getInput("/home/ahmed/level2term2/Ds2/Heap_and_sorting_algorithms/src/10000down1.txt");
+        int[] ans = getInput("/home/ahmed/level2term2/Ds2/Heap_and_sorting_algorithms/src/10000up1.txt");
         MergeSort mysort = new MergeSort(arr);
-        int[] ans = { 10, 20, 30, 40, 50, 60 };
         assertArrayEquals(ans, mysort.getResult());
+        mysort.getTime("/home/ahmed/level2term2/Ds2/Heap_and_sorting_algorithms/src/bestCase.txt");
     }
 
     @org.junit.Test
     // reversed
     public void test4Merge() {
-        int[] arr = { 100, 80, 60, 40, 30, 20 };
+        int[] arr = getInput("/home/ahmed/level2term2/Ds2/Heap_and_sorting_algorithms/src/10000down1.txt");
+        int[] ans = getInput("/home/ahmed/level2term2/Ds2/Heap_and_sorting_algorithms/src/10000up1.txt");
         MergeSort mysort = new MergeSort(arr);
-        int[] ans = { 20, 30, 40, 60, 80, 100 };
         assertArrayEquals(ans, mysort.getResult());
+        mysort.getTime("/home/ahmed/level2term2/Ds2/Heap_and_sorting_algorithms/src/worstCase.txt");
     }
 
     // end merge sort
@@ -85,6 +89,7 @@ public class Test {
         int[] ans = { -1, 0, 2, 4, 7, 10, 21 };
         mysort.sort();
         assertArrayEquals(ans, mysort.intermediate[mysort.intermediate.length - 1]);
+        mysort.getTime("/home/ahmed/level2term2/Ds2/Heap_and_sorting_algorithms/src/avergeCase.txt");
     }
 
     @org.junit.Test
@@ -95,26 +100,28 @@ public class Test {
         int[] ans = { -7538, -6475, -5335, -2770, -1459, -1028, -439, 869, 2858, 9381 };
         mysort.sort();
         assertArrayEquals(ans, mysort.intermediate[mysort.intermediate.length - 1]);
+        mysort.getTime("/home/ahmed/level2term2/Ds2/Heap_and_sorting_algorithms/src/avergeCase.txt");
     }
 
     @org.junit.Test
     // already sorted
     public void test3Count() {
-        int[] arr = { 10, 20, 30, 40, 50, 60 };
+        int[] arr = getInput("/home/ahmed/level2term2/Ds2/Heap_and_sorting_algorithms/src/10000up1.txt");
         CountingSort mysort = new CountingSort(arr);
-        int[] ans = { 10, 20, 30, 40, 50, 60 };
         mysort.sort();
-        assertArrayEquals(ans, mysort.intermediate[mysort.intermediate.length - 1]);
+        assertArrayEquals(arr, mysort.intermediate[mysort.intermediate.length - 1]);
+        mysort.getTime("/home/ahmed/level2term2/Ds2/Heap_and_sorting_algorithms/src/bestCase.txt");
     }
 
     @org.junit.Test
     // reversed
     public void test4Count() {
-        int[] arr = { 100, 80, 60, 40, 30, 20 };
+        int[] arr = getInput("/home/ahmed/level2term2/Ds2/Heap_and_sorting_algorithms/src/10000down1.txt");
+        int[] ans = getInput("/home/ahmed/level2term2/Ds2/Heap_and_sorting_algorithms/src/10000up1.txt");
         CountingSort mysort = new CountingSort(arr);
-        int[] ans = { 20, 30, 40, 60, 80, 100 };
         mysort.sort();
         assertArrayEquals(ans, mysort.intermediate[mysort.intermediate.length - 1]);
+        mysort.getTime("/home/ahmed/level2term2/Ds2/Heap_and_sorting_algorithms/src/worstCase.txt");
     }
 
     // end count sort
@@ -127,6 +134,7 @@ public class Test {
         InsertionSort mysort = new InsertionSort();
         int[] ans = { -1, 0, 2, 4, 7, 10, 21 };
         assertArrayEquals(ans, mysort.sort(arr, 7, false));
+        mysort.getTime("/home/ahmed/level2term2/Ds2/Heap_and_sorting_algorithms/src/avergeCase.txt");
     }
 
     @org.junit.Test
@@ -136,24 +144,26 @@ public class Test {
         InsertionSort mysort = new InsertionSort();
         int[] ans = { -7538, -6475, -5335, -2770, -1459, -1028, -439, 869, 2858, 9381 };
         assertArrayEquals(ans, mysort.sort(arr, 10, false));
+        mysort.getTime("/home/ahmed/level2term2/Ds2/Heap_and_sorting_algorithms/src/avergeCase.txt");
     }
 
     @org.junit.Test
     // already sorted
     public void test3Insert() {
-        int[] arr = { 10, 20, 30, 40, 50, 60 };
+        int[] arr = getInput("/home/ahmed/level2term2/Ds2/Heap_and_sorting_algorithms/src/10000up1.txt");
         InsertionSort mysort = new InsertionSort();
-        int[] ans = { 10, 20, 30, 40, 50, 60 };
-        assertArrayEquals(ans, mysort.sort(arr, 6, false));
+        assertArrayEquals(arr, mysort.sort(arr, 10000, false));
+        mysort.getTime("/home/ahmed/level2term2/Ds2/Heap_and_sorting_algorithms/src/bestCase.txt");
     }
 
     @org.junit.Test
     // reversed
     public void test4Insert() {
-        int[] arr = { 100, 80, 60, 40, 30, 20 };
+        int[] arr = getInput("/home/ahmed/level2term2/Ds2/Heap_and_sorting_algorithms/src/10000down1.txt");
+        int[] ans = getInput("/home/ahmed/level2term2/Ds2/Heap_and_sorting_algorithms/src/10000up1.txt");
         InsertionSort mysort = new InsertionSort();
-        int[] ans = { 20, 30, 40, 60, 80, 100 };
-        assertArrayEquals(ans, mysort.sort(arr, 6, false));
+        assertArrayEquals(ans, mysort.sort(arr, 10000, false));
+        mysort.getTime("/home/ahmed/level2term2/Ds2/Heap_and_sorting_algorithms/src/worstCase.txt");
     }
 
     // end insertion sort
@@ -168,6 +178,7 @@ public class Test {
         int[] temp = hs.sort(arr, false);
         int[] ans = { -7538, -6475, -5335, -2770, -1459, -1028, -439, 869, 2858, 9381 };
         assertArrayEquals(ans, temp);
+        // call get time here
     }
 
     @org.junit.Test
@@ -183,26 +194,28 @@ public class Test {
         int[] temp = hs.sort(mh.heapified, false);
         int[] ans = { -1, 0, 2, 4, 5, 7, 10 };
         assertArrayEquals(ans, temp);
+        // call get time here
     }
 
     @org.junit.Test
     // already sorted
     public void test3Heap() {
         HeapSort hs = new HeapSort();
-        int[] arr = { 10, 20, 30, 40, 50, 60 };
+        int[] arr = getInput("/home/ahmed/level2term2/Ds2/Heap_and_sorting_algorithms/src/10000up1.txt");
         int[] temp = hs.sort(arr, false);
-        int[] ans = { 10, 20, 30, 40, 50, 60 };
-        assertArrayEquals(ans, temp);
+        assertArrayEquals(arr, temp);
+        // call get time here
     }
 
     @org.junit.Test
     // reversed
     public void test4Heap() {
         HeapSort hs = new HeapSort();
-        int[] arr = { 60, 50, 40, 30, 20, 10 };
+        int[] arr = getInput("/home/ahmed/level2term2/Ds2/Heap_and_sorting_algorithms/src/10000down1.txt");
         int[] temp = hs.sort(arr, false);
-        int[] ans = { 10, 20, 30, 40, 50, 60 };
+        int[] ans = getInput("/home/ahmed/level2term2/Ds2/Heap_and_sorting_algorithms/src/10000up1.txt");
         assertArrayEquals(ans, temp);
+        // call get time here
     }
 
     @org.junit.Test
@@ -220,6 +233,7 @@ public class Test {
         assertArrayEquals(ans, temp);
         assertEquals(50, mh.heapExtractMax());
         assertEquals(21, mh.heapExtractMax());
+        // call get time here
     }
 
     // end heap
@@ -234,6 +248,9 @@ public class Test {
         int[] temp = hs.sort(arr, false);
         assertArrayEquals(ms.getResult(), is.sort(arr, 100000, false));
         assertArrayEquals(ms.getResult(), temp);
+        ms.getTime("/home/ahmed/level2term2/Ds2/Heap_and_sorting_algorithms/src/avergeCase.txt");
+        is.getTime("/home/ahmed/level2term2/Ds2/Heap_and_sorting_algorithms/src/avergeCase.txt");
+        // call get time here
     }
 
     @org.junit.Test
@@ -249,6 +266,10 @@ public class Test {
         assertArrayEquals(ms.getResult(), cs.intermediate[cs.intermediate.length - 1]);
         assertArrayEquals(ms.getResult(), is.sort(arr, 10000, false));
         assertArrayEquals(ms.getResult(), temp);
+        ms.getTime("/home/ahmed/level2term2/Ds2/Heap_and_sorting_algorithms/src/avergeCase.txt");
+        is.getTime("/home/ahmed/level2term2/Ds2/Heap_and_sorting_algorithms/src/avergeCase.txt");
+        cs.getTime("/home/ahmed/level2term2/Ds2/Heap_and_sorting_algorithms/src/avergeCase.txt");
+        // call get time here
     }
 
     @org.junit.Test
@@ -264,6 +285,10 @@ public class Test {
         assertArrayEquals(ms.getResult(), cs.intermediate[cs.intermediate.length - 1]);
         assertArrayEquals(ms.getResult(), is.sort(arr, 20000, false));
         assertArrayEquals(ms.getResult(), temp);
+        ms.getTime("/home/ahmed/level2term2/Ds2/Heap_and_sorting_algorithms/src/avergeCase.txt");
+        is.getTime("/home/ahmed/level2term2/Ds2/Heap_and_sorting_algorithms/src/avergeCase.txt");
+        cs.getTime("/home/ahmed/level2term2/Ds2/Heap_and_sorting_algorithms/src/avergeCase.txt");
+        // call get time here
     }
 
     @org.junit.Test
@@ -280,6 +305,10 @@ public class Test {
         assertArrayEquals(ms.getResult(), cs.intermediate[cs.intermediate.length - 1]);
         assertArrayEquals(ms.getResult(), is.sort(arr, 1, false));
         assertArrayEquals(ms.getResult(), temp);
+        ms.getTime("/home/ahmed/level2term2/Ds2/Heap_and_sorting_algorithms/src/bestCase.txt");
+        is.getTime("/home/ahmed/level2term2/Ds2/Heap_and_sorting_algorithms/src/bestCase.txt");
+        cs.getTime("/home/ahmed/level2term2/Ds2/Heap_and_sorting_algorithms/src/bestCase.txt");
+        // call get time here
     }
 
 }

@@ -1,11 +1,13 @@
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class MergeSort {
     private int[] arr;
     private ArrayList<ArrayList<int[]>> allArrays = new ArrayList<ArrayList<int[]>>();
     private ArrayList<ArrayList<int[]>> splited = new ArrayList<ArrayList<int[]>>();
     private long time = 0;
+    private long notUsed = 0;
 
     MergeSort(int[] arr) {
         this.arr = new int[arr.length];
@@ -17,35 +19,41 @@ public class MergeSort {
     }
 
     private void sort(int first, int last, int levelnum) {
+        long start = System.nanoTime();
         if (allArrays.size() < levelnum + 1) {
             allArrays.add(new ArrayList<int[]>());
         }
         if (splited.size() < levelnum + 1) {
             splited.add(new ArrayList<int[]>());
         }
+        notUsed += (System.nanoTime() - start);
         if (first < last) {
+            start = System.nanoTime();
             splited.get(levelnum).add(makeList(first, last));
+            notUsed += (System.nanoTime() - start);
             int mid = (first + last) / 2;
             sort(first, mid, levelnum + 1);
             sort(mid + 1, last, levelnum + 1);
             int[] temp = merge(first, mid, last);
+            start = System.nanoTime();
             allArrays.get(levelnum).add(temp);
+            notUsed += (System.nanoTime() - start);
         } else {
+            start = System.nanoTime();
             int[] lastElem = new int[1];
             lastElem[0] = arr[first];
             allArrays.get(levelnum).add(lastElem);
             splited.get(levelnum).add(lastElem);
+            notUsed += (System.nanoTime() - start);
         }
 
     }
 
     private int[] makeList(int l, int h) {
-        long start = System.nanoTime();
         int[] ans = new int[h - l + 1];
         for (int i = l; i <= h; i++) {
             ans[i - l] = arr[i];
         }
-        time -= (System.nanoTime() - start);
         return ans;
     }
 
@@ -73,51 +81,72 @@ public class MergeSort {
         return afterMerge;
     }
 
-    private void print1Array(int[] toPrint) {
-        System.out.print("[");
+    private void print1Array(int[] toPrint, FileWriter writer) throws IOException {
+        writer.append("[");
         for (int i = 0; i < toPrint.length - 1; i++) {
-            System.out.print(toPrint[i] + ", ");
+            writer.append(toPrint[i] + ", ");
         }
-        System.out.print(toPrint[toPrint.length - 1]);
-        System.out.print("]");
+        writer.append(toPrint[toPrint.length - 1] + "");
+        writer.append("]");
     }
 
     public void printLast() {
-        print1Array(arr);
-        System.out.println();
+        String path = "/home/ahmed/level2term2/Ds2/Heap_and_sorting_algorithms/src/mergeOut.txt";
+        try (FileWriter writer = new FileWriter(path)) {
+            print1Array(arr, writer);
+            writer.append("\n");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void printAll() {
-        int n1 = splited.size();
-        System.out.println("Splitting");
-        System.out.println("|->> initial");
-        for (int i = 0; i < n1; i++) {
-            int m = splited.get(i).size();
-            System.out.print((i + 1) + ") ");
-            for (int j = 0; j < m - 1; j++) {
-                print1Array(splited.get(i).get(j));
-                System.out.print(", ");
+        String path = "/home/ahmed/level2term2/Ds2/Heap_and_sorting_algorithms/src/mergeOut.txt";
+        try (FileWriter writer = new FileWriter(path)) {
+            int n1 = splited.size();
+            writer.append("Splitting\n");
+            writer.append("|->> initial\n");
+            for (int i = 0; i < n1; i++) {
+                int m = splited.get(i).size();
+                writer.append((i + 1) + ") ");
+                for (int j = 0; j < m - 1; j++) {
+                    print1Array(splited.get(i).get(j), writer);
+                    writer.append(", ");
+                }
+                print1Array(splited.get(i).get(m - 1), writer);
+                writer.append("\n");
             }
-            print1Array(splited.get(i).get(m - 1));
-            System.out.println();
-        }
-        int n = allArrays.size();
-        System.out.println("merging");
-        for (int i = n - 1; i >= 0; i--) {
-            int m = allArrays.get(i).size();
-            System.out.print((n - i) + ") ");
-            for (int j = 0; j < m - 1; j++) {
-                print1Array(allArrays.get(i).get(j));
-                System.out.print(", ");
+            int n = allArrays.size();
+            writer.append("merging\n");
+            for (int i = n - 1; i >= 0; i--) {
+                int m = allArrays.get(i).size();
+                writer.append((n - i) + ") ");
+                for (int j = 0; j < m - 1; j++) {
+                    print1Array(allArrays.get(i).get(j), writer);
+                    writer.append(", ");
+                }
+                print1Array(allArrays.get(i).get(m - 1), writer);
+                writer.append("\n");
             }
-            print1Array(allArrays.get(i).get(m - 1));
-            System.out.println();
+            writer.append("|_>> Sorted Array\n");
+        } catch (
+
+        IOException e) {
+            e.printStackTrace();
         }
     }
 
-    public void getTime() {
-        System.out.println("Time in nano = " + time);
-        System.out.println("Time in micro = " + time / 1000);
+    public void getTime(String path) {
+        try (FileWriter writer = new FileWriter(path, true)) {
+            writer.append(
+                    "Merge sort time for size = " + arr.length + "in micro = " + ((time - notUsed) / 1000) + "\n");
+            writer.append(
+                    "Merge sort time for size = " + arr.length + " in milli = " + ((time - notUsed) / 1000000) + "\n");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public int[] getResult() {
