@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Sort_Array {
@@ -29,19 +30,19 @@ public class Sort_Array {
         }
     }
 
-    public void Simple_Sort(boolean intermediate) {
+    public void Simple_Sort(boolean intermediate) throws IOException {
         int[] elementsClone = new int[elements.length];
         for (int i = 0; i < elements.length; i++) {
             elementsClone[i] = elements[i];
         }
         InsertionSort is = new InsertionSort();
         if (intermediate)
-            System.out.println("Sorted array with intermediate steps using Insertion Sort:");
+            System.out.println("Sorted array with intermediate steps using Insertion Sort in file insertOut.txt");
         else
-            System.out.println("Sorted array using Insertion Sort:");
+            System.out.println("Sorted array using Insertion Sort in file insertOut.txt");
         is.sort(elementsClone, size, intermediate);
         if (intermediate)
-            System.out.println("|_>> Sorted Array");
+            System.out.println("Sorted Array in file insertOut.txt ");
     }
 
     public void Efficient_Sort(boolean intermediate) {

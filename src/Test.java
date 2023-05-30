@@ -3,6 +3,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -129,7 +130,7 @@ public class Test {
     // start insertion sort
     @org.junit.Test
     // small unsorted odd size array with negative and zero
-    public void test1Insert() {
+    public void test1Insert() throws IOException {
         int[] arr = getInput("/home/ahmed/level2term2/Ds2/Heap_and_sorting_algorithms/src/test1.txt");
         InsertionSort mysort = new InsertionSort();
         int[] ans = { -1, 0, 2, 4, 7, 10, 21 };
@@ -139,7 +140,7 @@ public class Test {
 
     @org.junit.Test
     // larg randome numbers even size
-    public void test2Insert() {
+    public void test2Insert() throws IOException {
         int[] arr = getInput("/home/ahmed/level2term2/Ds2/Heap_and_sorting_algorithms/src/10n1.txt");
         InsertionSort mysort = new InsertionSort();
         int[] ans = { -7538, -6475, -5335, -2770, -1459, -1028, -439, 869, 2858, 9381 };
@@ -149,7 +150,7 @@ public class Test {
 
     @org.junit.Test
     // already sorted
-    public void test3Insert() {
+    public void test3Insert() throws IOException {
         int[] arr = getInput("/home/ahmed/level2term2/Ds2/Heap_and_sorting_algorithms/src/10000up1.txt");
         InsertionSort mysort = new InsertionSort();
         assertArrayEquals(arr, mysort.sort(arr, 10000, false));
@@ -158,7 +159,7 @@ public class Test {
 
     @org.junit.Test
     // reversed
-    public void test4Insert() {
+    public void test4Insert() throws IOException {
         int[] arr = getInput("/home/ahmed/level2term2/Ds2/Heap_and_sorting_algorithms/src/10000down1.txt");
         int[] ans = getInput("/home/ahmed/level2term2/Ds2/Heap_and_sorting_algorithms/src/10000up1.txt");
         InsertionSort mysort = new InsertionSort();
@@ -240,7 +241,7 @@ public class Test {
 
     // heap, O(N^2) and O(n log n) methods 100k larg file
     @org.junit.Test
-    public void testAll() {
+    public void testAll() throws IOException {
         HeapSort hs = new HeapSort();
         int[] arr = getInput("/home/ahmed/level2term2/Ds2/Heap_and_sorting_algorithms/src/100000n1.txt");
         MergeSort ms = new MergeSort(arr);
@@ -255,7 +256,7 @@ public class Test {
 
     @org.junit.Test
     // 10 k words all methods
-    public void testAll2() {
+    public void testAll2() throws IOException {
         HeapSort hs = new HeapSort();
         int[] arr = getInput("/home/ahmed/level2term2/Ds2/Heap_and_sorting_algorithms/src/10000n1.txt");
         MergeSort ms = new MergeSort(arr);
@@ -274,7 +275,7 @@ public class Test {
 
     @org.junit.Test
     // 20 k words all methods
-    public void testAll3() {
+    public void testAll3() throws IOException {
         HeapSort hs = new HeapSort();
         int[] arr = getInput("/home/ahmed/level2term2/Ds2/Heap_and_sorting_algorithms/src/20000n1.txt");
         MergeSort ms = new MergeSort(arr);
@@ -293,7 +294,7 @@ public class Test {
 
     @org.junit.Test
     // only one element
-    public void testAll4() {
+    public void testAll4() throws IOException {
         HeapSort hs = new HeapSort();
         int[] arr = { 205 };
         MergeSort ms = new MergeSort(arr);

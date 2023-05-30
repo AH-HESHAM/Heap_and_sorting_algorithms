@@ -1,0 +1,28 @@
+Merge sort time for size = 100000in micro = 162922
+Merge sort time for size = 100000 in milli = 162
+Insert sort time for size = 100000in micro = 21851775
+Insert sort time for size = 100000 in milli = 21851
+Merge sort time for size = 10000in micro = 15270
+Merge sort time for size = 10000 in milli = 15
+Insert sort time for size = 10000in micro = 326
+Insert sort time for size = 10000 in milli = 0
+Count sort time for size = 10000in micro = 1696570
+Count sort time for size = 10000 in milli = 1696
+Merge sort time for size = 20000in micro = 15918
+Merge sort time for size = 20000 in milli = 15
+Insert sort time for size = 20000in micro = 608
+Insert sort time for size = 20000 in milli = 0
+Count sort time for size = 20000in micro = 3784885
+Count sort time for size = 20000 in milli = 3784
+Insert sort time for size = 7in micro = 0
+Insert sort time for size = 7 in milli = 0
+Count sort time for size = 7in micro = 21
+Count sort time for size = 7 in milli = 0
+Merge sort time for size = 7in micro = 13
+Merge sort time for size = 7 in milli = 0
+Count sort time for size = 10in micro = 540
+Count sort time for size = 10 in milli = 0
+Merge sort time for size = 10in micro = 10
+Merge sort time for size = 10 in milli = 0
+Insert sort time for size = 10in micro = 1
+Insert sort time for size = 10 in milli = 0

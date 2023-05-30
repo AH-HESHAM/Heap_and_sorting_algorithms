@@ -3,7 +3,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 public class InsertionSort {
-     private FileWriter fileWriter = new FileWriter("insertion.txt");
+     private FileWriter fileWriter = new FileWriter("D:\\CSED2_2\\DS\\labs\\sorting\\Heap_and_sorting_algorithms\\src\\insertOut.txt");
     long time = 0;
     int n = 0;
     public InsertionSort() throws IOException {
@@ -27,6 +27,7 @@ public class InsertionSort {
          if (!intermediate){
              print(arr);
          }
+         close();
          return arr;
      }
 
