@@ -1,48 +1,53 @@
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 public class InsertionSort {
+     private FileWriter fileWriter = new FileWriter("insertion.txt");
     long time = 0;
     int n = 0;
-
-    public int[] sort(int[] arr, int size, boolean intermediate) {
-        n = size;
-        long start = System.nanoTime();
-        for (int i = 1; i < size; i++) {
-            int key = arr[i];
-            int j = i - 1;
-            while (j >= 0 && arr[j] > key) {
-                arr[j + 1] = arr[j];
-                j--;
-            }
-            arr[j + 1] = key;
-            if (intermediate) {
-                System.out.print(i + ") ");
-                print(arr);
-                System.out.println();
-            }
-        }
-        time += (System.nanoTime() - start);
-        if (!intermediate) {
-            print(arr);
-            System.out.println();
-        }
-        return arr;
+    public InsertionSort() throws IOException {
     }
+    public int [] sort(int[] arr, int size , boolean intermediate) throws IOException {
+         n = size;
+         long start = System.nanoTime();
+         for (int i = 1; i < size; i++) {
+             int key = arr[i];
+             int j = i - 1;
+             while (j >= 0 && arr[j] > key) {
+                 arr[j + 1] = arr[j];
+                 j--;
+             }
+             arr[j + 1] = key;
+             if (intermediate){
+                 print(arr);
+             }
+         }
+         time += (System.nanoTime() - start);
+         if (!intermediate){
+             print(arr);
+         }
+         return arr;
+     }
 
-    private void print(int[] arr) {
-        int size = arr.length;
-        System.out.print("[");
-        for (int i = 0; i < size; i++) {
-            System.out.print(arr[i]);
-            if (i < size - 1) {
-                System.out.print(", ");
+    private void print(int[] arr) throws IOException {
+        PrintWriter printWriter= new  PrintWriter(fileWriter);
+        int size =  arr.length;
+        printWriter.print("[");
+        for (int i = 0 ; i < size; i++){
+            printWriter.print(arr[i]);
+            if (i < size -1 ){
+                printWriter.print(" ,");
 
             }
         }
-        System.out.print("]");
+        printWriter.print("]");
+        printWriter.println();
+        printWriter.flush();
     }
-
+     public void close () throws IOException {
+        fileWriter.close();
+    }
     public void getTime(String path) {
         try (FileWriter writer = new FileWriter(path, true)) {
             writer.append("Insert sort time for size = " + n + "in micro = " + ((time) / 1000) + "\n");
