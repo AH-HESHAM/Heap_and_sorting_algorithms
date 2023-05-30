@@ -1,5 +1,14 @@
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+
 public class InsertionSort {
-     int [] sort(int[] arr, int size , boolean intermediate) {
+    private FileWriter fileWriter = new FileWriter("insertion.txt");
+
+    public InsertionSort() throws IOException {
+    }
+
+    int [] sort(int[] arr, int size , boolean intermediate) throws IOException {
          for (int i = 1; i < size; i++) {
              int key = arr[i];
              int j = i - 1;
@@ -9,31 +18,32 @@ public class InsertionSort {
              }
              arr[j + 1] = key;
              if (intermediate){
-                 System.out.print(i + ") ");
                  print(arr);
-                 System.out.println();
              }
          }
-         if (intermediate){
+         if (!intermediate){
              print(arr);
-             System.out.println();
          }
          return arr;
      }
 
-    private void print(int[] arr){
+    private void print(int[] arr) throws IOException {
+        PrintWriter printWriter= new  PrintWriter(fileWriter);
         int size =  arr.length;
-        System.out.print("[");
+        printWriter.print("[");
         for (int i = 0 ; i < size; i++){
-            System.out.print(arr[i]);
+            printWriter.print(arr[i]);
             if (i < size -1 ){
-                System.out.print(" ,");
+                printWriter.print(" ,");
 
             }
         }
-        System.out.print("]");
+        printWriter.print("]");
+        printWriter.println();
+        printWriter.flush();
     }
-
-
+    public void close () throws IOException {
+        fileWriter.close();
+    }
 }
 
