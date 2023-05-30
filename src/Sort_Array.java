@@ -1,32 +1,39 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Sort_Array {
     private int[] elements;
     private int size;
 
-    Sort_Array(String filePath) {
+    Sort_Array(String filePath) throws IOException {
         init(filePath);
         size = elements.length;
     }
 
-    private void init(String filePath) {
-        try {
-            Scanner scanner = new Scanner(new File(filePath));
-            scanner.useDelimiter(", ");
-            int[] numbers = new int[0];
-            while (scanner.hasNextInt()) {
-                int[] temp = new int[numbers.length + 1];
-                System.arraycopy(numbers, 0, temp, 0, numbers.length);
-                temp[numbers.length] = scanner.nextInt();
-                numbers = temp;
+    private void init(String filePath) throws IOException {
+        String file = filePath;
+        Path path = Paths.get(file);
+        List<String> lines = Files.readAllLines(path);
+
+        List<Integer> numbers = new ArrayList<>();
+        for (String line : lines) {
+            Pattern pattern = Pattern.compile("\\d+");
+            Matcher matcher = pattern.matcher(line);
+            while (matcher.find()) {
+                int number = Integer.parseInt(matcher.group());
+                numbers.add(number);
             }
-            elements = numbers;
-            scanner.close();
-        } catch (FileNotFoundException e) {
-            System.err.println("File not found: " + e.getMessage());
+        }
+        elements = new int[numbers.size()];
+        for(int i=0; i< numbers.size(); i++){
+            elements[i] = numbers.get(i);
         }
     }
 
@@ -37,12 +44,12 @@ public class Sort_Array {
         }
         InsertionSort is = new InsertionSort();
         if (intermediate)
-            System.out.println("Sorted array with intermediate steps using Insertion Sort in file insertOut.txt");
+            System.out.println("Sorted array with intermediate steps using Insertion Sort:");
         else
-            System.out.println("Sorted array using Insertion Sort in file insertOut.txt");
+            System.out.println("Sorted array using Insertion Sort:");
         is.sort(elementsClone, size, intermediate);
         if (intermediate)
-            System.out.println("Sorted Array in file insertOut.txt ");
+            System.out.println("|_>> Sorted Array");
     }
 
     public void Efficient_Sort(boolean intermediate) {
