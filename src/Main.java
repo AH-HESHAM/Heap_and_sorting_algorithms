@@ -39,7 +39,7 @@ public class Main {
         BufferedReader reader = new BufferedReader(new FileReader(filePath));
         String line;
         while ((line = reader.readLine()) != null) {
-            String[] tokens = line.split(", ");
+            String[] tokens = line.split(",");
             for (String token : tokens) {
                 integers.add(Integer.parseInt(token.trim()));
             }
@@ -92,8 +92,8 @@ public class Main {
                 selection0 = sc.nextLine();
             }
             if(selection0.equals("5")) break;
-            
-            
+
+
             switch(selection0) {
                 case "1": {
                     clearScreen();
@@ -118,8 +118,8 @@ public class Main {
                     break;
                 }
                 case "2": {
-                    if(!built) {
-                        System.out.println("Heap is not built yet");
+                    if(!built || m.heapified.length == 0) {
+                        System.out.println("Heap is not built yet or empty");
                         prompt();
                     } else {
                         HeapSort hs0 = new HeapSort();
@@ -131,28 +131,34 @@ public class Main {
                     break;
                 }
                 case "3": {
-                    if(!built) {
-                        System.out.println("Heap is not built yet");
+                    if(!built || m.heapified.length == 0) {
+                        System.out.println("Heap is not built yet or empty");
                         prompt();
                     } else {
-                        System.out.println("Max: " + m.heapExtractMax());
+                        if(m.heapified.length != 0)
+                            System.out.println("Max: " + m.heapExtractMax());
+                        else System.out.println("Heap is empty");
+                        temp_arr = MaxHeap.arrayToList(m.heapified);
                         prompt();
                     }
                     break;
                 }
                 case "4": {
-                    if(!built) {
-                        System.out.println("Heap is not built yet");
-                        prompt();
+                    int num = 0;
+                    System.out.print("Number to insert: ");
+                    num = sc.nextInt();
+                    if(!built || m.heapified.length == 0) {
+                        List<Integer> tempL = new ArrayList<>(1);
+                        tempL.add(0, num);
+                        m.heapified = MaxHeap.listToArray(tempL);
+                        temp_arr = MaxHeap.arrayToList(m.heapified);
+                        built = true;
                     } else {
-                        int num = 0;
-                        System.out.print("Number to insert: ");
-                        num = sc.nextInt();
                         m.maxHeapInsert(num);
                         temp_arr.add(temp_arr.size(), num);
-                        System.out.println(num + " Inserted successfully");
-                        prompt();
                     }
+                    System.out.println(num + " Inserted successfully");
+                    prompt();
                     break;
                 }
             }
