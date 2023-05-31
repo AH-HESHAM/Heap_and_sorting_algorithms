@@ -1,0 +1,2 @@
+Merge sort time for size = 10in micro = 12
+Merge sort time for size = 10 in milli = 0
