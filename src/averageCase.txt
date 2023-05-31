@@ -1,2 +1,6 @@
 Merge sort time for size = 10in micro = 12
 Merge sort time for size = 10 in milli = 0
+Merge sort time for size = 10in micro = 40
+Merge sort time for size = 10 in milli = 0
+Merge sort time for size = 10in micro = 8
+Merge sort time for size = 10 in milli = 0

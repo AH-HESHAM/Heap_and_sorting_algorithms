@@ -31,16 +31,16 @@ public class MaxHeap {
         heapified = listToArray(arr);
     }
 
-    // public void heapSort(List<Integer> arr) {
-    // int n = arr.size();
+    public void heapSort(List<Integer> arr) {
+        int n = arr.size();
 
-    // buildMaxHeap(arr);
+        buildMaxHeap(arr);
 
-    // for (int i = n - 1; i > 0; i--) {
-    // swap(arr, 0, i);
-    // maxHeapify(arr, i, 0);
-    // }
-    // }
+        for (int i = n - 1; i > 0; i--) {
+        swap(arr, 0, i);
+        maxHeapify(arr, i, 0);
+        }
+    }
 
     public boolean maxHeapInsert(int num) {
         if (heapified.length == 0)
