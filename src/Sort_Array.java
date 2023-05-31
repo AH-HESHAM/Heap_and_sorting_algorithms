@@ -1,7 +1,10 @@
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -9,27 +12,23 @@ public class Sort_Array {
     private int[] elements;
     private int size;
 
-    Sort_Array(String filePath) {
+    Sort_Array(String filePath) throws NumberFormatException, IOException {
         init(filePath);
         size = elements.length;
     }
 
-    private void init(String filePath) {
-        try {
-            Scanner scanner = new Scanner(new File(filePath));
-            scanner.useDelimiter(", ");
-            int[] numbers = new int[0];
-            while (scanner.hasNextInt()) {
-                int[] temp = new int[numbers.length + 1];
-                System.arraycopy(numbers, 0, temp, 0, numbers.length);
-                temp[numbers.length] = scanner.nextInt();
-                numbers = temp;
+    private void init(String filePath) throws NumberFormatException, IOException {
+        List<Integer> integers = new ArrayList<>();
+        BufferedReader reader = new BufferedReader(new FileReader(filePath));
+        String line;
+        while ((line = reader.readLine()) != null) {
+            String[] tokens = line.split(", ");
+            for (String token : tokens) {
+                integers.add(Integer.parseInt(token.trim()));
             }
-            elements = numbers;
-            scanner.close();
-        } catch (FileNotFoundException e) {
-            System.err.println("File not found: " + e.getMessage());
         }
+        reader.close();
+        elements = integers.stream().mapToInt(Integer::intValue).toArray();
     }
 
 

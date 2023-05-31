@@ -1,3 +1,8 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -29,6 +34,30 @@ public class Main {
         System.out.flush();  
     }
 
+    public static List<Integer> parseIntegersFromFile(String filePath) throws IOException {
+        List<Integer> integers = new ArrayList<>();
+        BufferedReader reader = new BufferedReader(new FileReader(filePath));
+        String line;
+        while ((line = reader.readLine()) != null) {
+            String[] tokens = line.split(", ");
+            for (String token : tokens) {
+                integers.add(Integer.parseInt(token.trim()));
+            }
+        }
+        reader.close();
+        return integers;
+    }
+
+    public static void print1Array(List<Integer> toPrint) {
+        System.out.print("[");
+        for (int i = 0; i < toPrint.size() - 1; i++) {
+            System.out.print(toPrint.get(i) + ", ");
+        }
+        System.out.print(toPrint.get(toPrint.size() - 1));
+        System.out.print("]");
+        System.out.println();
+    }
+
     /* ------------------------End Utils------------------------ */
     public static void main(String[] args) throws Exception {
         // int[] arr = { 10, 4, 6, 7, 2, 1 };
@@ -46,9 +75,88 @@ public class Main {
 
         clearScreen();
         Sort_Array sorting_object = null;
-        MaxHeap maxHeap = null;
-        // Initialize the Sorting Object
+        MaxHeap m = new MaxHeap();
         Scanner sc = new Scanner(System.in);
+
+        boolean built = false;
+        List<Integer> temp_arr = null;
+        while(true) {
+            String selection0 = "0";
+            while(!selection0.equals("1") && !selection0.equals("2") && !selection0.equals("3") && !selection0.equals("4") && !selection0.equals("5")) {
+                clearScreen();
+                System.out.println(BLACK + "--> " + PURPLE + "1. " + CYAN + "Build Heap" + ANSI_RESET);
+                System.out.println(BLACK + "--> " + PURPLE + "2. " + CYAN + "Heap Sort" + ANSI_RESET);
+                System.out.println(BLACK + "--> " + PURPLE + "3. " + CYAN + "Extract Max" + ANSI_RESET);
+                System.out.println(BLACK + "--> " + PURPLE + "4. " + CYAN + "Insert" + ANSI_RESET);
+                System.out.println(BLACK + "--> " + PURPLE + "5. " + CYAN + "Sorting Techniques" + ANSI_RESET);
+                selection0 = sc.nextLine();
+            }
+            if(selection0.equals("5")) break;
+            
+            
+            switch(selection0) {
+                case "1": {
+                    clearScreen();
+                    boolean initialized0 = false;
+                    while(!initialized0){
+                        clearScreen();
+                        System.out.print(GREEN + "Enter the File's Path: " + ANSI_RESET);
+                        initialized0 = true;
+                        try {
+                            String filePath = sc.nextLine();
+                            m.buildMaxHeap(parseIntegersFromFile(filePath));
+                            temp_arr = parseIntegersFromFile(filePath);
+                        } catch (Exception e) {
+                            System.out.println("Press any key to try again.");
+                            sc.nextLine();
+                            initialized0 = false;
+                        }
+                    }
+                    System.out.println("Heap build successfully");
+                    built = true;
+                    prompt();
+                    break;
+                }
+                case "2": {
+                    if(!built) {
+                        System.out.println("Heap is not built yet");
+                        prompt();
+                    } else {
+                        m.heapSort(temp_arr);
+                        print1Array(temp_arr);
+                        prompt();
+                    }
+                    break;
+                }
+                case "3": {
+                    if(!built) {
+                        System.out.println("Heap is not built yet");
+                        prompt();
+                    } else {
+                        System.out.println("Max: " + m.heapExtractMax());
+                        prompt();
+                    }
+                    break;
+                }
+                case "4": {
+                    if(!built) {
+                        System.out.println("Heap is not built yet");
+                        prompt();
+                    } else {
+                        int num = 0;
+                        System.out.print("Number to insert: ");
+                        num = sc.nextInt();
+                        m.maxHeapInsert(num);
+                        temp_arr.add(temp_arr.size(), num);
+                        System.out.println(num + " Inserted successfully");
+                        prompt();
+                    }
+                    break;
+                }
+            }
+        }
+        
+        // Initialize the Sorting Object
         boolean initialized = false;
         while(!initialized){
             clearScreen();
@@ -67,19 +175,16 @@ public class Main {
         while(true) {
             // Main menu
             String selection = "0";
-            while(!selection.equals("1") && !selection.equals("2") && !selection.equals("3") && !selection.equals("4") && !selection.equals("5") && !selection.equals("6") && !selection.equals("7") && !selection.equals("8")  ) {
+            while(!selection.equals("1") && !selection.equals("2") && !selection.equals("3") && !selection.equals("4") && !selection.equals("5")) {
                 clearScreen();
                 System.out.println(BLACK + "--> " + PURPLE + "1. " + CYAN + "Simple Sort. (Insertion Sort)" + ANSI_RESET);
                 System.out.println(BLACK + "--> " + PURPLE + "2. " + CYAN + "Efficient Sort. (Merge Sort)" + ANSI_RESET);
                 System.out.println(BLACK + "--> " + PURPLE + "3. " + CYAN + "Non-Comparison Sort. (Counting Sort)" + ANSI_RESET);
                 System.out.println(BLACK + "--> " + PURPLE + "4. " + CYAN + "Heap Sort." + ANSI_RESET);
-                System.out.println(BLACK + "--> " + PURPLE + "5. " + CYAN + "Heap Extract." + ANSI_RESET);
-                System.out.println(BLACK + "--> " + PURPLE + "6. " + CYAN + "Heap Insert." + ANSI_RESET);
-                System.out.println(BLACK + "--> " + PURPLE + "7. " + CYAN + "Heap Build." + ANSI_RESET);
-                System.out.println(BLACK + "--> " + PURPLE + "8. " + CYAN + "Exit." + ANSI_RESET);
+                System.out.println(BLACK + "--> " + PURPLE + "5. " + CYAN + "Exit." + ANSI_RESET);
                 selection = sc.nextLine();
             }
-            if(selection.equals("8")) break;
+            if(selection.equals("5")) break;
 
             // Sub Menu
             String intermediateString = "NAN";

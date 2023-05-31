@@ -61,9 +61,8 @@ public class Test {
     @org.junit.Test
     // already sorted
     public void test3Merge() {
-        int[] arr = getInput("src/10000down1.txt");
-        int[] ans = getInput("src/10000up1.txt");
-        MergeSort mysort = new MergeSort(arr);
+        int[] ans = getInput("C:/Users/moham/Desktop/Heap_and_sorting_algorithms/src/10000up1.txt");
+        MergeSort mysort = new MergeSort(ans);
         assertArrayEquals(ans, mysort.getResult());
         mysort.getTime("src/bestCase.txt");
     }
