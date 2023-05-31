@@ -122,8 +122,10 @@ public class Main {
                         System.out.println("Heap is not built yet");
                         prompt();
                     } else {
+                        HeapSort hs0 = new HeapSort();
+                        hs0.sort(MaxHeap.listToArray(temp_arr), false);
+                        System.out.println("Sorted array out in HeapOut.txt");
                         m.heapSort(temp_arr);
-                        print1Array(temp_arr);
                         prompt();
                     }
                     break;
