@@ -1,95 +1,91 @@
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HeapSort {
-    long timeMicros = 0;
-    int[] arr;
-    int size = 0;
+public class MaxHeap {
+    int[] heapified;
 
-    public int[] sort(int[] array, boolean intermediate) {
-        MaxHeap mh = new MaxHeap();
-        List<Integer> arr = new ArrayList<>();
-        for (int i = 0; i < array.length; i++) {
-            arr.add(i, array[i]);
+    public void maxHeapify(List<Integer> arr, int n, int i) {
+        int largest = i;
+        int left = 2 * i + 1;
+        int right = 2 * i + 2;
+
+        if (left < n && arr.get(left) > arr.get(largest)) {
+            largest = left;
         }
+
+        if (right < n && arr.get(right) > arr.get(largest)) {
+            largest = right;
+        }
+
+        if (largest != i) {
+            swap(arr, i, largest);
+            maxHeapify(arr, n, largest);
+        }
+    }
+
+    public void buildMaxHeap(List<Integer> arr) {
         int n = arr.size();
-        mh.buildMaxHeap(arr);
-
-        try (PrintWriter writer = new PrintWriter(new FileWriter("src/HeapOut.txt"))) {
-            for (int i = n - 1; i > 0; i--) {
-                if (intermediate) {
-                    writer.println(arr); // Write each intermediate array to a new line
-                }
-                long startTime = System.nanoTime();
-                mh.swap(arr, 0, i);
-                mh.maxHeapify(arr, i, 0);
-                long endTime = System.nanoTime();
-                timeMicros += (endTime - startTime) / 1000;
-
-            }
-
-                writer.println(arr); // Write the final sorted array to a new line
-
-        } catch (IOException e) {
-            e.printStackTrace();
+        for (int i = n / 2 - 1; i >= 0; i--) {
+            maxHeapify(arr, n, i);
         }
-        size = arr.size();
-        return MaxHeap.listToArray(arr);
+        heapified = listToArray(arr);
     }
 
+    public void heapSort(List<Integer> arr) {
+        int n = arr.size();
 
+        buildMaxHeap(arr);
 
-    private void print1Array(List<Integer> toPrint, FileWriter writer) throws IOException {
-        writer.append("[");
-        for (int i = 0; i < toPrint.size() - 1; i++) {
-            writer.append(toPrint.get(i) + ", ");
-        }
-        writer.append(toPrint.get(toPrint.size() - 1) + "");
-        writer.append("]");
-    }
-
-    private void print(List<Integer> arr) {
-        String path = "src/HeapOut.txt";
-        try (FileWriter writer = new FileWriter(path)) {
-            print1Array(arr, writer);
-            writer.append("\n");
-
-        } catch (IOException e) {
-            e.printStackTrace();
+        for (int i = n - 1; i > 0; i--) {
+        swap(arr, 0, i);
+        maxHeapify(arr, i, 0);
         }
     }
 
-    private void print2(int[] arr) {
-        String path = "src/HeapOut.txt";
-        try (FileWriter writer = new FileWriter(path)) {
-            print2Array(arr, writer);
-            writer.append("\n");
+    public boolean maxHeapInsert(int num) {
+        if (heapified.length == 0)
+            return false;
+        List<Integer> arr = arrayToList(heapified);
+        arr.add(num);
+        int i = arr.size() - 1;
 
-        } catch (IOException e) {
-            e.printStackTrace();
+        while (i > 0 && arr.get((i - 1) / 2) < arr.get(i)) {
+            swap(arr, i, (i - 1) / 2);
+            i = (i - 1) / 2;
         }
-    }
-    private void print2Array(int[] toPrint, FileWriter writer) throws IOException {
-        writer.append("[");
-        for (int i = 0; i < toPrint.length - 1; i++) {
-            writer.append(toPrint[i] + ", ");
-        }
-        writer.append(toPrint[toPrint.length -1 ] + "");
-        writer.append("]");
+        heapified = listToArray(arr);
+        return true;
     }
 
-    public void getTime(String path) {
-        try (FileWriter writer = new FileWriter(path, true)) {
-            writer.append(
-                    "Merge sort time for size = " + size + "in micro = " + timeMicros + "\n");
-            writer.append(
-                    "Merge sort time for size = " + size + " in milli = " + (timeMicros / 1000) + "\n");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public int heapExtractMax() {
+        List<Integer> arr = arrayToList(heapified);
+        int max = arr.get(0);
+        int n = arr.size();
+        arr.set(0, arr.get(n - 1));
+        arr.remove(n - 1);
+        maxHeapify(arr, arr.size(), 0);
+        heapified = listToArray(arr);
+        return max;
     }
 
+    public void swap(List<Integer> arr, int i, int j) {
+        int temp = arr.get(i);
+        arr.set(i, arr.get(j));
+        arr.set(j, temp);
+    }
+
+    public static List<Integer> arrayToList(int[] arr) {
+        List<Integer> list = new ArrayList<>();
+        for (int i : arr)
+            list.add(i);
+        return list;
+    }
+
+    public static int[] listToArray(List<Integer> list) {
+        int[] arr = new int[list.size()];
+        for (int i = 0; i < list.size(); i++) {
+            arr[i] = list.get(i);
+        }
+        return arr;
+    }
 }
